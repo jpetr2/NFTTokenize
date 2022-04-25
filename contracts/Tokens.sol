@@ -21,6 +21,6 @@ contract Tokens is ERC1155, Ownable {
     
     function burn(address from, uint decimals, uint256 amount) public {
         require(msg.sender == from);
-        _burn(from, id, amount);
+        _burn(from, decimals, amount);
     }
 }
