@@ -6,8 +6,10 @@ describe("Tokens", function () {
     const Token = await ethers.getContractFactory("Tokens");
     const token = await Token.deploy();
     await token.deployed();
+    const [owner] = await ethers.getSigners();
+    expect(await token.project()).to.equal(1);
+    expect(await token.balanceOf(owner.address, 0)).to.equal(3000);
 
-    expect(await token.project()).to.equal(5);
   });
 
   it("Should set the owner correctly", async function () {
@@ -24,11 +26,11 @@ describe("Tokens", function () {
     const token = await Token.deploy();
     await token.deployed();
 
-    const [owner] = await ethers.getSigners();
-    const mintTx = await token.mint(10, 0);
+    const mintTx = await token.mint(10, 0, "0x00");
     // wait until the transaction is mined
     await mintTx.wait();
-    expect(await token.project()).to.equal(6);
-    expect(await token.balanceOf(owner.address, 5)).to.equal(10);
+    const [owner] = await ethers.getSigners();
+    expect(await token.project()).to.equal(2);
+    expect(await token.balanceOf(owner.address, 1)).to.equal(10);
   });
 });

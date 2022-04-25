@@ -8,18 +8,14 @@ contract Tokens is ERC1155, Ownable {
     uint256 public project = 0;
 
     constructor() ERC1155("https://tokens.frtn.nl/api/item/{id}.json") {
-        _mint(msg.sender, project++, 10**18, "");
-        _mint(msg.sender, project++, 10**27, "");
-        _mint(msg.sender, project++, 1, "");
-        _mint(msg.sender, project++, 10**9, "");
-        _mint(msg.sender, project++, 10**9, "");
+        mint(3000,0, "");
     }
 
-    function mint(uint amount, uint decimals) public onlyOwner {
+    function mint(uint amount, uint decimals, bytes memory data) public onlyOwner {
         if(decimals == 0) {
-            _mint(msg.sender, project++, amount, "");
+            _mint(msg.sender, project++, amount, data);
         } else {
-            _mint(msg.sender, project++, amount**decimals, "");
+            _mint(msg.sender, project++, amount**decimals, data);
         }
     }
 }
