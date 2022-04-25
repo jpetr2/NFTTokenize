@@ -25,7 +25,7 @@ describe("Tokens", function () {
     await token.deployed();
 
     const [owner] = await ethers.getSigners();
-    const mintTx = await token.mint(10,0);
+    const mintTx = await token.mint(10, 0);
     // wait until the transaction is mined
     await mintTx.wait();
     expect(await token.project()).to.equal(6);
