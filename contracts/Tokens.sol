@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Tokens is ERC1155, Ownable {
     uint256 public project = 0;
 
-    constructor() ERC1155("https://tokens.frtn.nl/api/item/{id}.json") {
+    constructor() ERC1155("https://tokens.frtn.nl/api/item/{id}.json") { //change to IPFS
         mint(3000,0, "");
     }
 
@@ -17,5 +17,10 @@ contract Tokens is ERC1155, Ownable {
         } else {
             _mint(msg.sender, project++, amount**decimals, data);
         }
+    }
+    
+    function burn(address from, uint decimals, uint256 amount) public {
+        require(msg.sender == from);
+        _burn(from, id, amount);
     }
 }
